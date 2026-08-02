@@ -38,6 +38,20 @@ data class PressureSensorState(
     val warning: String = "No warning",
 )
 
+enum class AlarmType {
+    SENSOR,
+    GLOBAL
+}
+
+data class AlarmState(
+    val id: String,
+    val type: AlarmType,
+    val title: String,
+    val message: String,
+    val sensorIndex: Int? = null,
+    val triggeredAtMillis: Long,
+)
+
 data class AppUiState(
     val connected: Boolean = false,
     val deviceIp: String? = null,
@@ -51,6 +65,7 @@ data class AppUiState(
         )
     },
     val sensors: List<PressureSensorState> = (1..4).map { PressureSensorState(it) },
+    val alarms: List<AlarmState> = emptyList(),
     val busyMessage: String? = null,
     val errorMessage: String? = null,
 )
